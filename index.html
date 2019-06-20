@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Meta Tag -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="./assets/css/jquery.mobile-1.4.5.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/jquery.mobile.theme-1.4.5.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/jquery.mobile.structure-1.4.5.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/jquery.mobile.inline-svg-1.4.5.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/jquery.mobile.inline-png-1.4.5.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/jquery.mobile.icons-1.4.5.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/jquery.mobile.external-png-1.4.5.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+    <title>
+        QR Mobile | AABC Software
+    </title>
+</head>
+<body background="./assets/images/64521.jpg">
+    <div data-role="page" id="login">
+        
+        <div data-role="header">
+            <div class="login-header">
+                Please Login
+            </div>
+        </div>  
+        <div data-role="main" class="ui-content">
+            <form id="form-login" class="login-form">
+                <img class="login-image" src="./assets/images/logo-aabc-software.png">
+                <input class="login-input" type="text" name="username-input" id="username-input" placeholder="Username" value="">
+                <input class="login-input" type="password" name="password-input" id="password-input" placeholder="Password" value="">
+                <!-- <button href="#scan" id="login-btn" class="ui-shadow ui-btn ui-corner-all">LOGIN</button> -->
+                <a href="#scan" data-transition="slide" class="ui-btn ui-shadow ui-corner-all">Login</a>
+            </form>
+        </div>  
+        <!-- <div data-role="footer">
+            &copy; AABC Sftware
+        </div> -->
+
+    </div>
+
+    <div data-role="page" id="scan">        
+        <div data-role="header">
+            <div class="login-header">
+                Scan Page
+            </div>
+        </div>  
+        <div data-role="main" class="ui-content">
+                <div class="qr" id="qr-read"></div>
+                <input class="login-input" type="text" name="qr-input" id="qr-input" placeholder="Scan QR" value="">
+                <button href="#" data-transition="slide" class="ui-shadow ui-btn ui-corner-all login-input">Scan</button>
+            </form>
+        </div>  
+        <!-- <div data-role="footer">
+            &copy; AABC Sftware
+        </div> -->
+
+    </div>
+    <script src="./assets/js/jquery-2.2.4.js"></script>
+    <script src="./assets/js/jquery.mobile-1.4.5.js"></script>
+    <script type="text/javascript" src="./assets/js/instascan.min.js"></script>
+    <script>
+        $("#qr-input").one("focus", function(){
+            let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+            scanner.addListener('scan', function (content) {
+                console.log(content);
+                $("#qr-read").text(content)
+                $("#qr-input").focusout()
+            });
+            Instascan.Camera.getCameras().then(function (cameras) {
+                if (cameras.length > 0) {
+                    scanner.start(cameras[0]);
+                } else {
+                    console.error('No cameras found.');
+                }
+            }).catch(function (e) {
+                console.error(e);
+            });
+        });
+        
+    </script>
+</body>
+</html>
