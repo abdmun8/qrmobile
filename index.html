@@ -62,7 +62,9 @@
     <script type="text/javascript" src="./assets/js/instascan.min.js"></script>
     <script>
         $("#qr-input").one("focus", function(){
-            let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+            
+        });
+        let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
             scanner.addListener('scan', function (content) {
                 console.log(content);
                 $("#qr-read").text(content)
@@ -77,7 +79,6 @@
             }).catch(function (e) {
                 console.error(e);
             });
-        });
         
     </script>
 </body>
